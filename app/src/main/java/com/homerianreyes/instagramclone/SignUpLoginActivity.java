@@ -1,5 +1,6 @@
 package com.homerianreyes.instagramclone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +47,10 @@ public class SignUpLoginActivity extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e == null){
                             FancyToast.makeText(SignUpLoginActivity.this, appUser.get("username")+" Successfully Sign Up!", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+
+                            edtSignUpUserName.getText().clear();
+                            edtSignUpPassword.getText().clear();
+
                         } else {
                             FancyToast.makeText(SignUpLoginActivity.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR,true).show();
                         }
@@ -63,6 +68,9 @@ public class SignUpLoginActivity extends AppCompatActivity {
                     public void done(ParseUser user, ParseException e) {
                         if (user != null && e == null) {
                             FancyToast.makeText(SignUpLoginActivity.this, user.get("username")+" Successfully Login!", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+
+                            Intent intent = new Intent(SignUpLoginActivity.this, WelcomeActivity.class);
+                            startActivity(intent);
                         } else {
                             FancyToast.makeText(SignUpLoginActivity.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR,true).show();
                         }
