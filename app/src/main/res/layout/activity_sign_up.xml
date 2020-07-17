@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e1306c"
+    android:background="@drawable/instagram_background"
     android:onClick="rootLayoutTapped"
     tools:context=".SignUp">
 
@@ -15,7 +15,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        android:background="#fcaf45"
+        android:background="@drawable/active_button_design"
+        android:textColor="#fff"
         android:padding="20dp"
         android:text="@string/sign_up"
         android:textSize="20sp"
@@ -30,7 +31,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
-        android:background="#f56040"
+        android:background="@drawable/inactive_button_design"
         android:padding="20dp"
         android:text="@string/log_in"
         android:textSize="20sp"
@@ -40,7 +41,7 @@
 
     <EditText
         android:id="@+id/edtSignUpPassword"
-        android:layout_width="250dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:hint="@string/enter_password"
@@ -49,11 +50,13 @@
         android:textColor="#fff"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtSignUpUsername" />
+        app:layout_constraintTop_toBottomOf="@id/edtSignUpUsername"
+        android:background="@drawable/edittext_design"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/edtSignUpEmail"
-        android:layout_width="250dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:hint="@string/enter_email"
@@ -62,11 +65,13 @@
         android:textColor="#fff"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgInstgaramCloneLogo" />
+        app:layout_constraintTop_toBottomOf="@id/imgInstgaramCloneLogo"
+        android:background="@drawable/edittext_design"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/edtSignUpUsername"
-        android:layout_width="250dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:hint="@string/enter_user"
@@ -75,7 +80,9 @@
         android:textColor="#fff"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtSignUpEmail" />
+        app:layout_constraintTop_toBottomOf="@id/edtSignUpEmail"
+        android:background="@drawable/edittext_design"
+        android:layout_marginTop="10dp"/>
 
     <ImageView
         android:id="@+id/imgInstgaramCloneLogo"
@@ -86,5 +93,5 @@
         android:src="@drawable/instagram_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
