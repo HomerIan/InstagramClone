@@ -50,7 +50,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         btnLogIn.setOnClickListener(this);
 
         if (ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().logOut();
+            //ParseUser.getCurrentUser().logOut();
+            transitionToSocialMediaActivity();
         }
     }//onCreate method
 
@@ -61,7 +62,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
             case R.id.btnSignUp:
 
-                if (edtSignUpEmail.getText().toString().equals("") ||
+                if (edtSignUpEmail.getText().toString() == null ||
                     edtSignUpUsername.getText().toString().equals("") ||
                     edtSignUpPassword.getText().toString().equals("")){
 
@@ -83,6 +84,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                             if (e == null) {
                                 FancyToast.makeText(SignUp.this, appUser.getUsername() + " Successfully signed up", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
+                                transitionToSocialMediaActivity();
                             } else {
                                 FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                             }
@@ -95,21 +97,25 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 }
                 break;
             case R.id.btnLogIn:
-
-                Intent intent = new Intent(SignUp.this, LoginActivity.class);
-                startActivity(intent);
+                    transitionToLoginActivity();
                 break;
         }
     }
     public void rootLayoutTapped(View view){
 
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
         try {
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }catch (Exception e){
             e.printStackTrace();
-            FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
         }
+    }
+    private void transitionToSocialMediaActivity(){
+        Intent intent = new Intent(SignUp.this, SocialMediaActivity.class);
+        startActivity(intent);
+    }
+    private void transitionToLoginActivity(){
+        Intent intent = new Intent(SignUp.this, LoginActivity.class);
+        startActivity(intent);
     }
 }

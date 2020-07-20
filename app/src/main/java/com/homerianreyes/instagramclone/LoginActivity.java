@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else {
 
                     final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-                    progressDialog.setMessage("Wait for a moment...");
+                    progressDialog.setMessage("Logging in...");
                     progressDialog.show();
 
                     ParseUser.logInInBackground(edtLoginEmail.getText().toString(), edtLoginPassword.getText().toString(), new LogInCallback() {
@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             if (user != null && e == null) {
                                 FancyToast.makeText(LoginActivity.this, user.getUsername() + " Successfully Log In", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
+                                transitionToSocialMediaActivity();
                             } else {
                                 FancyToast.makeText(LoginActivity.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                             }
@@ -88,17 +89,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.btnSignUpLoginActivity:
-                Intent intent = new Intent(LoginActivity.this, SignUp.class);
-                startActivity(intent);
+                transitionToSignUpActivity();
                 break;
         }
     }
     public void rootLayoutTapped(View view) {
 
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         try {
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    private void transitionToSocialMediaActivity(){
+        Intent intent = new Intent(LoginActivity.this, SocialMediaActivity.class);
+        startActivity(intent);
+    }
+    private void transitionToSignUpActivity(){
+        Intent intent = new Intent(LoginActivity.this, SignUp.class);
+        startActivity(intent);
     }
 }

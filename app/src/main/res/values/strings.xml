@@ -6,4 +6,6 @@
     <string name="enter_user">Please enter an username...</string>
     <string name="enter_password">Please enter a password...</string>
     <string name="content_description">Instagram Clone Logo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
