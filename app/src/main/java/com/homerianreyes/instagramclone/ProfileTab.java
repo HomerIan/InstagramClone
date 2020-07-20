@@ -1,12 +1,19 @@
 package com.homerianreyes.instagramclone;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.shashank.sony.fancytoastlib.FancyToast;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +21,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ProfileTab extends Fragment {
+
+    private EditText edtMyProfileName;
+    private EditText edtMyBio;
+    private EditText edtMyProfessoion;
+    private EditText edtMyHobbies;
+    private EditText edtMyFavSport;
+    private Button btnUpdateInfo;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +73,61 @@ public class ProfileTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_tab, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_tab, container, false);
+        edtMyProfileName = view.findViewById(R.id.edtMyProfileName);
+        edtMyBio = view.findViewById(R.id.edtMyBio);
+        edtMyProfessoion = view.findViewById(R.id.edtMyProfession);
+        edtMyHobbies = view.findViewById(R.id.edtMyHobbies);
+        edtMyFavSport = view.findViewById(R.id.edtMyFavSport);
+
+        btnUpdateInfo = view.findViewById(R.id.btnUpdateInfo);
+
+        final ParseUser parseUser = ParseUser.getCurrentUser();
+
+        if (parseUser.get("profileName") == null ||
+            parseUser.get("profileBio") == null ||
+            parseUser.get("profileProfession") == null ||
+            parseUser.get("profileHobbies") == null ||
+            parseUser.get("profileFavSport") == null){
+            edtMyProfileName.setText("");
+            edtMyBio.setText("");
+            edtMyProfessoion.setText("");
+            edtMyHobbies.setText("");
+            edtMyFavSport.setText("");
+        } else {
+
+            edtMyProfileName.setText(parseUser.get("profileName").toString());
+            edtMyBio.setText(parseUser.get("profileBio").toString());
+            edtMyProfessoion.setText(parseUser.get("profileProfession").toString());
+            edtMyHobbies.setText(parseUser.get("profileHobbies").toString());
+            edtMyFavSport.setText(parseUser.get("profileFavSport").toString());
+        }
+        btnUpdateInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parseUser.put("profileName",edtMyProfileName.getText().toString());
+                parseUser.put("profileBio",edtMyBio.getText().toString());
+                parseUser.put("profileProfession", edtMyProfessoion.getText().toString());
+                parseUser.put("profileHobbies", edtMyHobbies.getText().toString());
+                parseUser.put("profileFavSport", edtMyFavSport.getText().toString());
+
+                final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                progressDialog.setMessage("Updating "+ parseUser.getUsername() +"'s Profile");
+                progressDialog.show();
+                parseUser.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+
+                        if (e == null){
+                            FancyToast.makeText(getContext(), "Updated Successfully", FancyToast.LENGTH_SHORT, FancyToast.INFO, false).show();
+                        }else{
+                            FancyToast.makeText(getContext(), e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
+            }
+        });
+        return view;
     }
 }
