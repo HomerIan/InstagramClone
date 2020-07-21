@@ -114,7 +114,7 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
 
                         requestPermissions(new String[]{
                                 Manifest.permission.READ_EXTERNAL_STORAGE
-                        }, 1000);
+                        }, 3000);
                     } else {
 
                         getChosenImage();
@@ -151,6 +151,7 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
                                         FancyToast.makeText(getContext(), "Unknown error",FancyToast.LENGTH_SHORT,FancyToast.ERROR,false).show();
                                         e.printStackTrace();
                                     }
+                                    progressDialog.dismiss();
                                 }
                             });
                         }//caption condition end
@@ -175,7 +176,7 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
         if (requestCode == 1000){
 
             if(grantResults.length > 0 &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
                 getChosenImage();
             }
@@ -188,7 +189,7 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
 
         if( requestCode == 2000){
 
-            if (resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK && data != null){
                 //Do something with your captured image
                 try {
 
@@ -200,10 +201,10 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
 
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
 
                     receivedImageBitmap = BitmapFactory.decodeFile(picturePath);
                     imgSharedPicture.setImageBitmap(receivedImageBitmap);
-                    cursor.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

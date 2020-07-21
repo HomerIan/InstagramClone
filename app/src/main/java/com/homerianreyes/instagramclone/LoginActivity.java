@@ -1,10 +1,9 @@
 package com.homerianreyes.instagramclone;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,12 +15,16 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edtLoginEmail;
     private EditText edtLoginPassword;
     private Button btnSignUpLoginActivity;
     private Button btnLoginLogInLoginActivity;
+
+    private long mLastClickTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+
+        // Preventing multiple clicks, using threshold of 1 second
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
 
         switch (view.getId()){
 
@@ -105,9 +114,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void transitionToSocialMediaActivity(){
         Intent intent = new Intent(LoginActivity.this, SocialMediaActivity.class);
         startActivity(intent);
+        finish();
     }
     private void transitionToSignUpActivity(){
         Intent intent = new Intent(LoginActivity.this, SignUp.class);
         startActivity(intent);
+        finish();
     }
 }

@@ -13,10 +13,13 @@
     <string name="enter_hobbies">Please enter your hobbies</string>
     <string name="enter_sports">Please enter your favourite sport</string>
     <string name="update_button">Update Info</string>
-    <!--Users Tab -->
+    <!-- Users Tab -->
     <string name="txt_loading_user">Loading Users... Please wait</string>
-    <!--Shared Picture Tab-->
+    <!-- Shared Picture Tab -->
     <string name="picture_description">Beach View</string>
     <string name="enter_caption">Enter caption...</string>
     <string name="share_button">Share Image</string>
+    <!-- my_menu -->
+    <string name="post_image_item">Post Image</string>
+    <string name="logout_user_item">Logout</string>
 </resources>
